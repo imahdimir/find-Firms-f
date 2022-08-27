@@ -135,7 +135,7 @@ def main() :
   dfs[titl] = dfs[titl].apply(lambda x : x[0])
   dfs[gpn] = dfs[gpn].apply(lambda x : x[0])
   ##
-  dfs[tmkt] = dfs[titl].apply(mt.extract_market_from_tsetmc_title)  ##
+  dfs[tmkt] = dfs[titl].apply(mt.extract_market_from_tsetmc_title)
   ##
   t2m_rp = GithubData(t2m_url)
   t2m_rp.clone()
@@ -159,11 +159,8 @@ def main() :
       "TSE.Naghd.M1.Main"       : None ,
       "TSE.Naghd.M1.Subsidiary" : None ,
       "TSE.Naghd.M2"            : None ,
-      "TSE.M4"                  : None ,
       "IFB.M1"                  : None ,
       "IFB.M2"                  : None ,
-      "IFB.M3"                  : None ,
-      "IFB.Paye"                : None ,
       "IFB.Paye.Yellow"         : None ,
       "IFB.Paye.Orange"         : None ,
       "IFB.Paye.Red"            : None ,
@@ -185,8 +182,8 @@ def main() :
       "اوراق بهادار مبتني بر دارايي فكري" : None ,
       }
   ##
-  msk = ~ dfs[gpn].isin(not_firms_gp.keys())
-  dfs.loc[msk , isfirm] = True
+  msk = dfs[gpn].isin(not_firms_gp.keys())
+  dfs.loc[msk , isfirm] = False
   ##
   msk = dfs[isfirm].eq(True)
   df1 = dfs[msk]
@@ -273,6 +270,7 @@ def main() :
   ##
 
   bt_repo.rmdir()
+  ##
   t2m_rp.rmdir()
   rp_m2f.rmdir()
   rp_i2f.rmdir()
